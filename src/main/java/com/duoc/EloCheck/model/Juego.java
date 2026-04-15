@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "elocheck")
-public class Check {
+@Table(name = "juegos")
+public class Juego {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +21,18 @@ public class Check {
     @NotBlank
     private String juegoNombre;
 
-    @NotBlank
-    private String ram;
+    @NotNull
+    private Integer ram;
 
     @NotBlank
     private String grafica;
 
     @NotBlank
     private String procesador;
+
+    @NotNull
+    private Integer espacio;
+
+    @NotBlank
+    private String elo;
 }
