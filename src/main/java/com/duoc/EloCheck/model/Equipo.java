@@ -32,7 +32,4 @@ public class Equipo {
 
     @NotBlank
     private String elo;
-
-    @Id
-    private Integer idUsuario;
 }
