@@ -7,20 +7,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "equipos")
-public class Equipo {
-
+@Table(name = "requisitos")
+public class Requisito {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
-
-    @NotBlank
-    private String nombreEquipo;
-
     @NotNull
     private Integer ram;
 
@@ -30,10 +26,9 @@ public class Equipo {
     @NotBlank
     private String procesador;
 
+    @NotNull
+    private Integer espacio;
+
     @NotBlank
     private String elo;
-
-    @OneToOne(mappedBy = "hardware")
-    private Usuario usuario;
-
 }

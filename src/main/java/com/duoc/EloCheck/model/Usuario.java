@@ -16,7 +16,6 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     @NotBlank
@@ -27,5 +26,9 @@ public class Usuario {
 
     @NotBlank
     private String email;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Equipo")
+    private Equipo hardware;
 
 }
