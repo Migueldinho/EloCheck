@@ -1,5 +1,6 @@
 package com.duoc.EloCheck.controller;
 
+import com.duoc.EloCheck.dto.nombreEloDto;
 import com.duoc.EloCheck.service.JuegoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class JuegoController {
     public ResponseEntity<List<String>> listarNombres(){
         return ResponseEntity.ok(juegoService.listarNombresJuegos());
 
+    }
+
+    @GetMapping("/con-nacionalidad")
+    public ResponseEntity<List<nombreEloDto>> nombrePorElo() {
+        return ResponseEntity.ok(juegoService.getNombreConEloDto());
     }
     
 }
