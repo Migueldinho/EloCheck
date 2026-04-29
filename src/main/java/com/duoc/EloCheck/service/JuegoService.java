@@ -3,7 +3,7 @@ package com.duoc.EloCheck.service;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.duoc.EloCheck.dto.nombreEloDto;
+import com.duoc.EloCheck.dto.NombreEloDto;
 import com.duoc.EloCheck.repository.UsuarioRepository;
 
 import java.util.List;
@@ -20,9 +20,9 @@ public class JuegoService {
         return Arrays.asList("Juego1", "Juego2", "Juego3");
     }
 
-    public List<nombreEloDto> getNombreConEloDto() {
+    public List<NombreEloDto> getNombreConEloDto() {
         return usuarioRepository.findAll().stream()
-                .map(l -> new nombreEloDto(
+                .map(l -> new NombreEloDto(
                         l.getNombre(),
                         l.getHardware().getNombreEquipo(),
                         l.getHardware().getElo()
