@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "requisitos")
 public class Requisito {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
     private Integer ram;

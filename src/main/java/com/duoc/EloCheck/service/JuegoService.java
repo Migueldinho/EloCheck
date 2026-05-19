@@ -1,32 +1,59 @@
 package com.duoc.EloCheck.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.duoc.EloCheck.dto.NombreEloDto;
-import com.duoc.EloCheck.repository.UsuarioRepository;
+import com.duoc.EloCheck.model.Juego;
+import com.duoc.EloCheck.repository.JuegoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Arrays;
 
 @Service
 public class JuegoService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    //Constructor en vez de @Autowired
+    private final JuegoRepository juegoRepository;
 
-    public List<String> listarNombresJuegos() {
-        // Implementación básica: devolver una lista de nombres de juegos de ejemplo
-        return Arrays.asList("Juego1", "Juego2", "Juego3");
+    public JuegoService(JuegoRepository juegoRepository) {
+        this.juegoRepository = juegoRepository;
     }
 
+    //Consulta la BD real
+    public List<String> listarNombresJuegos() {
+        return juegoRepository.findAll()
+                .stream()
+                .map(Juego::getJuegoNombre)
+                .toList();
+    }
+
+    
     public List<NombreEloDto> getNombreConEloDto() {
-        return usuarioRepository.findAll().stream()
-                .map(l -> new NombreEloDto(
-                        l.getNombre(),
-                        l.getHardware().getNombreEquipo(),
-                        l.getHardware().getElo()
+        return juegoRepository.findAll()
+                .stream()
+                .filter(j -> j.getRequisitoMinimo() != null)
+                .map(j -> new NombreEloDto(
+                        j.getJuegoNombre(),
+                        j.getRequisitoMinimo().getGrafica(),
+                        j.getRequisitoMinimo().getElo()
                 ))
                 .toList();
+    }
+
+    //buscar por ID
+    public Juego buscarPorId(Integer id) {
+        return juegoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Juego no encontrado con id: " + id));
+    }
+
+    //guardar
+    public Juego guardar(Juego juego) {
+        return juegoRepository.save(juego);
+    }
+
+    //eliminar
+    public void eliminar(Integer id) {
+        if (!juegoRepository.existsById(id)) {
+            throw new RuntimeException("No existe un juego con id: " + id);
+        }
+        juegoRepository.deleteById(id);
     }
 }
