@@ -1,5 +1,6 @@
 package com.duoc.EloCheck.service;
  
+import com.duoc.EloCheck.dto.NombreEloDto;
 import com.duoc.EloCheck.dto.UsuarioHardwareDto;
 import com.duoc.EloCheck.model.Usuario;
 import com.duoc.EloCheck.repository.UsuarioRepository;
@@ -64,5 +65,17 @@ public class UsuarioService {
             throw new RuntimeException("No existe un usuario con id: " + id);
         }
         usuarioRepository.deleteById(id);
+    }
+
+    public List<NombreEloDto> getNombreConEloDto() {
+        return usuarioRepository.findAll()
+                .stream()
+                .filter(j -> j.getHardware() != null)
+                .map(j -> new NombreEloDto(
+                        j.getNombre(),
+                        j.getHardware().getNombreEquipo(),
+                        j.getHardware().getElo()
+                ))
+                .toList();
     }
 }

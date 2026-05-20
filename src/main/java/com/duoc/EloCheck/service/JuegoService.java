@@ -25,19 +25,6 @@ public class JuegoService {
                 .toList();
     }
 
-    
-    public List<NombreEloDto> getNombreConEloDto() {
-        return juegoRepository.findAll()
-                .stream()
-                .filter(j -> j.getRequisitoMinimo() != null)
-                .map(j -> new NombreEloDto(
-                        j.getJuegoNombre(),
-                        j.getRequisitoMinimo().getGrafica(),
-                        j.getRequisitoMinimo().getElo()
-                ))
-                .toList();
-    }
-
     //buscar por ID
     public Juego buscarPorId(Integer id) {
         return juegoRepository.findById(id)

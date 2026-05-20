@@ -24,11 +24,6 @@ public class JuegoController {
         return ResponseEntity.ok(juegoService.listarNombresJuegos());
     }
 
-    @GetMapping("/con-elo")
-    public ResponseEntity<List<NombreEloDto>> nombrePorElo() {
-        return ResponseEntity.ok(juegoService.getNombreConEloDto());
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Juego> buscarPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(juegoService.buscarPorId(id));

@@ -1,5 +1,6 @@
 package com.duoc.EloCheck.controller;
 
+import com.duoc.EloCheck.dto.NombreEloDto;
 import com.duoc.EloCheck.dto.UsuarioHardwareDto;
 import com.duoc.EloCheck.model.Usuario;
 import com.duoc.EloCheck.service.UsuarioService;
@@ -41,5 +42,10 @@ public class UsuarioController {
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         usuarioService.eliminar(id);
         return ResponseEntity.noContent().build(); // 204
+    }
+
+    @GetMapping("/con-elo")
+    public ResponseEntity<List<NombreEloDto>> nombrePorElo() {
+        return ResponseEntity.ok(usuarioService.getNombreConEloDto());
     }
 }
