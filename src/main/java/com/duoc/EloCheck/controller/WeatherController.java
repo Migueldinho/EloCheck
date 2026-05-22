@@ -19,6 +19,7 @@ private final WeatherService weatherService;
     // GET /api/weather/current → usa coordenadas por defecto (application.properties)
     @GetMapping("/current")
     public ResponseEntity<ResponseWeatherDto> getCurrentWeather() {
+        System.out.println("[CONTROLLER] GET /api/weather/current - Iniciando");
         return ResponseEntity.ok(weatherService.getCurrentWeather(null, null));
     }
 
@@ -27,6 +28,7 @@ private final WeatherService weatherService;
     public ResponseEntity<ResponseWeatherDto> getCurrentWeatherCustom(
             @RequestParam Double latitude,
             @RequestParam Double longitude) {
+        System.out.println("[CONTROLLER] GET /api/weather/current/custom - Iniciando");
         return ResponseEntity.ok(weatherService.getCurrentWeather(latitude, longitude));
     }
     

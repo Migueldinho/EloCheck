@@ -1,6 +1,5 @@
 package com.duoc.EloCheck.service;
 
-import com.duoc.EloCheck.dto.NombreEloDto;
 import com.duoc.EloCheck.model.Juego;
 import com.duoc.EloCheck.repository.JuegoRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,13 @@ public class JuegoService {
 
     public JuegoService(JuegoRepository juegoRepository) {
         this.juegoRepository = juegoRepository;
+    }
+
+    public List<Juego> obtenerTodos() {
+        System.out.println("[SERVICE] Obteniendo todos los juegos");
+        List<Juego> juegos = juegoRepository.findAll();
+        System.out.println("[SERVICE] Total de juegos: " + juegos.size());
+        return juegos;
     }
 
     //Consulta la BD real

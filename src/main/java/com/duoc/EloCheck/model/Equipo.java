@@ -1,5 +1,7 @@
 package com.duoc.EloCheck.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,6 +35,7 @@ public class Equipo {
     @NotBlank
     private String elo;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "hardware")
     private Usuario usuario;
 

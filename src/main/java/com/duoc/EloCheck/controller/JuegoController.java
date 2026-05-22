@@ -1,6 +1,5 @@
 package com.duoc.EloCheck.controller;
 
-import com.duoc.EloCheck.dto.NombreEloDto;
 import com.duoc.EloCheck.model.Juego;
 import com.duoc.EloCheck.service.JuegoService;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,14 @@ public class JuegoController {
 
     public JuegoController(JuegoService juegoService) {
         this.juegoService = juegoService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Juego>> obtenerTodos() {
+        System.out.println("[CONTROLLER] GET /api/juegos - Iniciando");
+        List<Juego> juegos = juegoService.obtenerTodos();
+        System.out.println("[CONTROLLER] Juegos obtenidos: " + juegos.size());
+        return ResponseEntity.ok(juegos);
     }
 
     @GetMapping("/nombres")
