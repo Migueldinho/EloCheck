@@ -1,61 +1,398 @@
 {
   "info": {
-    "_postman_id": "4f18b0c4-a9ed-4cc7-91c1-9f6ea6e1cf18",
     "name": "EloCheck API",
-    "description": "Colección de endpoints para el proyecto elocheck.",
+    "description": "API REST para verificar compatibilidad de juegos con equipos",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Clima (Open-Meteo)",
+      "name": "Juegos",
+      "description": "Gestión de juegos",
       "item": [
         {
-          "name": "Clima actual - Santiago (default)",
+          "name": "Obtener todos los juegos",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/clima",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "clima"]
+              "raw": "{{base_url}}/api/juegos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "juegos"]
             },
-            "description": "Devuelve el clima actual de Santiago de Chile usando la API Open-Meteo (lat=-33.45, lon=-70.65).\n\nEjemplo de respuesta:\n{\n  \"latitude\": -33.45,\n  \"longitude\": -70.65,\n  \"current_weather\": {\n    \"temperature\": 14.5,\n    \"windspeed\": 22.3,\n    \"winddirection\": 180,\n    \"weathercode\": 3,\n    \"is_day\": 1,\n    \"time\": \"2024-01-15T12:00\"\n  }\n}"
-          },
-          "response": []
+            "description": "Lista todos los juegos registrados"
+          }
         },
         {
-          "name": "Clima actual - coordenadas personalizadas",
+          "name": "Obtener juego por ID",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/clima?lat=-41.47&lon=-72.94",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "clima"],
+              "raw": "{{base_url}}/api/juegos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "juegos", "1"]
+            },
+            "description": "Obtiene un juego específico por su ID"
+          }
+        },
+        {
+          "name": "Listar nombres de juegos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/juegos/nombres",
+              "host": ["{{base_url}}"],
+              "path": ["api", "juegos", "nombres"]
+            },
+            "description": "Lista solo los nombres de los juegos"
+          }
+        },
+        {
+          "name": "Crear juego",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"juegoNombre\": \"Cyberpunk 2077\",\n  \"requisitoMinimo\": {\n    \"ram\": 8,\n    \"procesador\": \"Intel i5\",\n    \"grafica\": \"GTX 1650\",\n    \"espacio\": 150,\n    \"elo\": \"1500\"\n  },\n  \"requisitoRecomendado\": {\n    \"ram\": 16,\n    \"procesador\": \"Intel i9\",\n    \"grafica\": \"RTX 3080\",\n    \"espacio\": 150,\n    \"elo\": \"2500\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/juegos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "juegos"]
+            },
+            "description": "Crear un nuevo juego con sus requisitos"
+          }
+        },
+        {
+          "name": "Eliminar juego",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/juegos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "juegos", "1"]
+            },
+            "description": "Elimina un juego por su ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "description": "Gestión de usuarios",
+      "item": [
+        {
+          "name": "Listar todos los usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usuarios"]
+            },
+            "description": "Lista todos los usuarios con su hardware"
+          }
+        },
+        {
+          "name": "Obtener usuario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usuarios", "1"]
+            },
+            "description": "Obtiene un usuario específico con su equipo"
+          }
+        },
+        {
+          "name": "Usuarios con ELO",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/con-elo",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usuarios", "con-elo"]
+            },
+            "description": "Lista usuarios con su ELO"
+          }
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"clave\": \"password123\",\n  \"hardware\": {\n    \"nombreEquipo\": \"PC Gaming Pro\",\n    \"ram\": 32,\n    \"procesador\": \"Intel i9-12900K\",\n    \"grafica\": \"RTX 4090\",\n    \"elo\": \"3000\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/usuarios",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usuarios"]
+            },
+            "description": "Registra un nuevo usuario con su equipo"
+          }
+        },
+        {
+          "name": "Eliminar usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usuarios", "1"]
+            },
+            "description": "Elimina un usuario por su ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Equipos",
+      "description": "Gestión de equipos (hardware)",
+      "item": [
+        {
+          "name": "Obtener todos los equipos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/equipos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "equipos"]
+            },
+            "description": "Lista todos los equipos registrados"
+          }
+        },
+        {
+          "name": "Obtener equipo por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/equipos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "equipos", "1"]
+            },
+            "description": "Obtiene un equipo específico por su ID"
+          }
+        },
+        {
+          "name": "Crear equipo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming\",\n  \"ram\": 16,\n  \"procesador\": \"Intel i7-11800H\",\n  \"grafica\": \"RTX 3070\",\n  \"elo\": \"2500\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/equipos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "equipos"]
+            },
+            "description": "Crea un nuevo equipo"
+          }
+        },
+        {
+          "name": "Actualizar equipo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming Pro\",\n  \"ram\": 32,\n  \"procesador\": \"Intel i9-12900H\",\n  \"grafica\": \"RTX 4080\",\n  \"elo\": \"3000\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/equipos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "equipos", "1"]
+            },
+            "description": "Actualiza los datos de un equipo"
+          }
+        },
+        {
+          "name": "Eliminar equipo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/equipos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "equipos", "1"]
+            },
+            "description": "Elimina un equipo por su ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Requisitos",
+      "description": "Gestión de requisitos de juegos",
+      "item": [
+        {
+          "name": "Obtener todos los requisitos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/requisitos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "requisitos"]
+            },
+            "description": "Lista todos los requisitos registrados"
+          }
+        },
+        {
+          "name": "Obtener requisito por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/requisitos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "requisitos", "1"]
+            },
+            "description": "Obtiene un requisito específico por su ID"
+          }
+        },
+        {
+          "name": "Crear requisito",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ram\": 8,\n  \"procesador\": \"Intel i5\",\n  \"grafica\": \"GTX 1650\",\n  \"espacio\": 100,\n  \"elo\": \"1500\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/requisitos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "requisitos"]
+            },
+            "description": "Crea un nuevo requisito para un juego"
+          }
+        },
+        {
+          "name": "Actualizar requisito",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ram\": 16,\n  \"procesador\": \"Intel i7\",\n  \"grafica\": \"RTX 2080\",\n  \"espacio\": 150,\n  \"elo\": \"2000\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/requisitos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "requisitos", "1"]
+            },
+            "description": "Actualiza los datos de un requisito"
+          }
+        },
+        {
+          "name": "Eliminar requisito",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/requisitos/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "requisitos", "1"]
+            },
+            "description": "Elimina un requisito por su ID"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clima (Weather API)",
+      "description": "API externa de clima - Open-Meteo",
+      "item": [
+        {
+          "name": "Clima actual (coordenadas por defecto)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/weather/current",
+              "host": ["{{base_url}}"],
+              "path": ["api", "weather", "current"]
+            },
+            "description": "Obtiene el clima actual usando coordenadas por defecto (Santiago, Chile)"
+          }
+        },
+        {
+          "name": "Clima personalizado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/weather/current/custom?latitude=40.7128&longitude=-74.0060",
+              "host": ["{{base_url}}"],
+              "path": ["api", "weather", "current", "custom"],
               "query": [
                 {
-                  "key": "lat",
-                  "value": "-41.47",
-                  "description": "Latitud (ej: -41.47 para Puerto Montt)"
+                  "key": "latitude",
+                  "value": "40.7128",
+                  "description": "Latitud (Nueva York: 40.7128)"
                 },
                 {
-                  "key": "lon",
-                  "value": "-72.94",
-                  "description": "Longitud (ej: -72.94 para Puerto Montt)"
+                  "key": "longitude",
+                  "value": "-74.0060",
+                  "description": "Longitud (Nueva York: -74.0060)"
                 }
               ]
             },
-            "description": "Devuelve el clima actual para coordenadas personalizadas. Este ejemplo usa Puerto Montt. Puedes cambiar lat y lon por cualquier ciudad del mundo."
-          },
-          "response": []
+            "description": "Obtiene el clima actual de una ubicación personalizada"
+          }
         }
       ]
     }
   ],
   "variable": [
     {
-      "key": "baseUrl",
-      "value": "http://localhost:8080"
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "description": "URL base de la API"
     }
   ]
 }
