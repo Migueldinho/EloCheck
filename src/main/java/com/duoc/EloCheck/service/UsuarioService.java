@@ -23,7 +23,7 @@ public class UsuarioService {
                 .stream()
                 .filter(u -> u.getHardware() != null) // solo usuarios con equipo registrado
                 .map(u -> new UsuarioHardwareDto(
-                        u.getUsername(),
+                        u.getNombre(),
                         u.getEmail(),
                         u.getHardware().getNombreEquipo(),
                         u.getHardware().getRam(),
@@ -44,7 +44,7 @@ public class UsuarioService {
         }
  
         return new UsuarioHardwareDto(
-                u.getUsername(),
+                u.getNombre(),
                 u.getEmail(),
                 u.getHardware().getNombreEquipo(),
                 u.getHardware().getRam(),
@@ -72,7 +72,7 @@ public class UsuarioService {
                 .stream()
                 .filter(j -> j.getHardware() != null)
                 .map(j -> new NombreEloDto(
-                        j.getUsername(),
+                        j.getNombre(),
                         j.getHardware().getNombreEquipo(),
                         j.getHardware().getElo()
                 ))

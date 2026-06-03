@@ -1,7 +1,7 @@
 package com.duoc.EloCheck.security;
 
-import com.duoc.EloCheck.model.Usuario;
-import com.duoc.EloCheck.repository.UsuarioRepository;
+import com.duoc.EloCheck.model.Usuario_seguridad;
+import com.duoc.EloCheck.repository.Usuario_seguridadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,11 +23,11 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private Usuario_seguridadRepository usuario_seguridadRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository
+        Usuario_seguridad usuario = usuario_seguridadRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
 

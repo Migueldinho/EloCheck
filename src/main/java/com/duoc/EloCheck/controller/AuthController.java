@@ -2,8 +2,8 @@ package com.duoc.EloCheck.controller;
 
 import com.duoc.EloCheck.dto.AuthRequest;
 import com.duoc.EloCheck.dto.AuthResponse;
-import com.duoc.EloCheck.model.Usuario;
-import com.duoc.EloCheck.repository.UsuarioRepository;
+import com.duoc.EloCheck.model.Usuario_seguridad;
+import com.duoc.EloCheck.repository.Usuario_seguridadRepository;
 import com.duoc.EloCheck.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private Usuario_seguridadRepository usuario_seguridadRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -45,15 +45,15 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody AuthRequest request) {
-        if (usuarioRepository.findByUsername(request.getUsername()).isPresent()) {
+        if (usuario_seguridadRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
         }
 
-        Usuario usuario = new Usuario();
+        Usuario_seguridad usuario = new Usuario_seguridad();
         usuario.setUsername(request.getUsername());
         usuario.setPassword(passwordEncoder.encode(request.getPassword()));
         usuario.setRole("ROLE_USER");
-        usuarioRepository.save(usuario);
+        usuario_seguridadRepository.save(usuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado exitosamente");
     }
