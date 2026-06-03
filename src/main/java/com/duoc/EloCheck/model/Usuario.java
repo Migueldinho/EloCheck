@@ -18,11 +18,11 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    private String nombre;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @NotBlank
-    private String clave;
+    @Column(nullable = false)
+    private String password;
 
     @NotBlank
     private String email;
@@ -30,5 +30,12 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Equipo")
     private Equipo hardware;
+
+    /**
+     * Rol del usuario. Valores esperados: "ROLE_USER" o "ROLE_ADMIN".
+     * Spring Security usa el prefijo ROLE_ para los métodos hasRole().
+     */
+    @Column(nullable = false)
+    private String role;
 
 }
