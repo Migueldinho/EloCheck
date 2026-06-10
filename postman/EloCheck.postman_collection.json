@@ -29,8 +29,8 @@
               "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/auth/register",
-              "host": ["{{baseUrl}}"],
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": ["{{base_url}}"],
               "path": ["api", "v1", "auth", "register"]
             },
             "description": "Crea un usuario nuevo con rol ROLE_USER (solo lectura).\nPara acceso total (POST/PUT/DELETE), ejecutar en MySQL:\n  UPDATE usuarios SET role = 'ROLE_ADMIN' WHERE username = 'admin';\n\nRespuesta 201: usuario registrado.\nRespuesta 409: el usuario ya existe."
@@ -63,8 +63,8 @@
               "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/auth/login",
-              "host": ["{{baseUrl}}"],
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": ["{{base_url}}"],
               "path": ["api", "v1", "auth", "login"]
             },
             "description": "Autentica al usuario y devuelve un JWT válido por 24 horas.\nEl script de Tests guarda el token automáticamente en la variable {{token}},\nque es usada por todos los demás requests de la colección.\n\nRespuesta 200: { \"token\": \"eyJ...\" }\nRespuesta 401: credenciales incorrectas."
@@ -128,7 +128,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"juegoNombre\": \"Cyberpunk 2077\",\n  \"requisitoMinimo\": {\n    \"ram\": 8,\n    \"procesador\": \"Intel i5\",\n    \"grafica\": \"GTX 1650\",\n    \"espacio\": 150,\n    \"elo\": \"1500\"\n  },\n  \"requisitoRecomendado\": {\n    \"ram\": 16,\n    \"procesador\": \"Intel i9\",\n    \"grafica\": \"RTX 3080\",\n    \"espacio\": 150,\n    \"elo\": \"2500\"\n  }\n}"
+              "raw": "{\n  \"juegoNombre\": \"Cyberpunk 2077\",\n  \"requisitoMinimo\": {\n    \"ram\": 8,\n    \"procesador\": \"Intel i5\",\n    \"grafica\": \"GTX 1650\",\n    \"espacio\": 150,\n    \"elo\": \"bronce\"\n  },\n  \"requisitoRecomendado\": {\n    \"ram\": 16,\n    \"procesador\": \"Intel i9\",\n    \"grafica\": \"RTX 3080\",\n    \"espacio\": 150,\n    \"elo\": \"diamante\"\n  }\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/juegos",
@@ -208,7 +208,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"clave\": \"password123\",\n  \"hardware\": {\n    \"nombreEquipo\": \"PC Gaming Pro\",\n    \"ram\": 32,\n    \"procesador\": \"Intel i9-12900K\",\n    \"grafica\": \"RTX 4090\",\n    \"elo\": \"3000\"\n  }\n}"
+              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"clave\": \"password123\",\n  \"hardware\": {\n    \"nombreEquipo\": \"PC Gaming Pro\",\n    \"ram\": 32,\n    \"procesador\": \"Intel i9-12900K\",\n    \"grafica\": \"RTX 4090\",\n    \"elo\": \"maestro\"\n  }\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/usuarios",
@@ -275,7 +275,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming\",\n  \"ram\": 16,\n  \"procesador\": \"Intel i7-11800H\",\n  \"grafica\": \"RTX 3070\",\n  \"elo\": \"2500\"\n}"
+              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming\",\n  \"ram\": 16,\n  \"procesador\": \"Intel i7-11800H\",\n  \"grafica\": \"RTX 3070\",\n  \"elo\": \"diamante\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/equipos",
@@ -297,7 +297,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming Pro\",\n  \"ram\": 32,\n  \"procesador\": \"Intel i9-12900H\",\n  \"grafica\": \"RTX 4080\",\n  \"elo\": \"3000\"\n}"
+              "raw": "{\n  \"nombreEquipo\": \"Laptop ASUS Gaming Pro\",\n  \"ram\": 32,\n  \"procesador\": \"Intel i9-12900H\",\n  \"grafica\": \"RTX 4080\",\n  \"elo\": \"maestro\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/equipos/1",
@@ -364,7 +364,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"ram\": 8,\n  \"procesador\": \"Intel i5\",\n  \"grafica\": \"GTX 1650\",\n  \"espacio\": 100,\n  \"elo\": \"1500\"\n}"
+              "raw": "{\n  \"ram\": 8,\n  \"procesador\": \"Intel i5\",\n  \"grafica\": \"GTX 1650\",\n  \"espacio\": 100,\n  \"elo\": \"bronce\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/requisitos",
@@ -386,7 +386,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"ram\": 16,\n  \"procesador\": \"Intel i7\",\n  \"grafica\": \"RTX 2080\",\n  \"espacio\": 150,\n  \"elo\": \"2000\"\n}"
+              "raw": "{\n  \"ram\": 16,\n  \"procesador\": \"Intel i7\",\n  \"grafica\": \"RTX 2080\",\n  \"espacio\": 150,\n  \"elo\": \"oro\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/api/requisitos/1",
