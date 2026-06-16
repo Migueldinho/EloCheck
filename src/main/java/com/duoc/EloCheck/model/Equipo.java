@@ -35,8 +35,4 @@ public class Equipo {
     @NotBlank
     private String elo;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "hardware")
-    private Usuario usuario;
-
 }
