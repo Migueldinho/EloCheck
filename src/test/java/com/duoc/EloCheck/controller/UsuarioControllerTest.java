@@ -27,26 +27,58 @@ class UsuarioControllerTest {
     @Test
     void crearUsuario_retorna201_cuandoDatosSonValidos() {
 
-        // 1. Preparación de los datos (Arrange)
+        System.out.println("\n===== INICIANDO TEST: crearUsuario_retorna201_cuandoDatosSonValidos =====");
+        
+        // Vamos a verificar que el método crear del controlador funciona correctamente
+        // Para ello crearemos un usuario con un equipo válido y simularemos el comportamiento del servicio
         Equipo equipo = new Equipo(1, "Pc juegos", 32, "RTX 3080 TI", "Ryzen 9 9950x", "Maestro");
         Usuario usuario = new Usuario(1, "Gabriel García Márquez", "sebasd", "gagam@duoc.cl", equipo);
+
+        System.out.println("[TEST] Datos preparados:");
+        System.out.println("[TEST]   - Usuario: " + usuario.getNombre());
+        System.out.println("[TEST]   - Email: " + usuario.getEmail());
+        System.out.println("[TEST]   - Equipo: " + equipo.getNombreEquipo());
+        System.out.println("[TEST]   - RAM: " + equipo.getRam() + "GB");
+        System.out.println("[TEST]   - GPU: " + equipo.getGrafica());
+        System.out.println("[TEST]   - CPU: " + equipo.getProcesador());
+        System.out.println("[TEST]   - Elo: " + equipo.getElo());
 
         // Simulamos el comportamiento del servicio (Mock)
         // Cuando el controlador invoque guardar(), Mockito devolverá el usuario sin tocar la base de datos.
         when(usuarioService.guardar(usuario)).thenReturn(usuario);
 
-        // 2. Ejecución (Act)
+        System.out.println("[TEST] Mock del servicio configurado");
+        System.out.println("[TEST] Cuando se invoque usuarioService.guardar(), retornará el usuario");
+
         // Llamamos al método del controlador que queremos probar.
+        System.out.println("[TEST] Ejecutando: usuarioController.crear(usuario)");
         ResponseEntity<Usuario> respuesta = usuarioController.crear(usuario);
 
-        // 3. Verificaciones (Assert)
-        assertNotNull(respuesta, "La respuesta no debería ser nula");
-        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode(), "El estado HTTP debe ser 201 (CREATED)");
+        System.out.println("[TEST] Respuesta recibida del controlador");
 
+        // Para que el test sea completo, verificamos varios aspectos de la respuesta:
+
+        // 1) La respuesta no debe ser nula.
+        System.out.println("[TEST] Iniciando validaciones (Assertions)...");
+        
+        assertNotNull(respuesta, "La respuesta no debería ser nula");
+        System.out.println("[TEST] Assertion 1: Respuesta no es nula");
+
+        // 2) El estado HTTP esperado al crear un recurso es 201 (CREATED).
+        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode(), "El estado HTTP debe ser 201 (CREATED)");
+        System.out.println("[TEST] Assertion 2: Status HTTP es 201 CREATED");
+
+        // 3) El cuerpo de la respuesta debe existir.
         var body = respuesta.getBody();
         assertNotNull(body, "El cuerpo de la respuesta no debería estar vacío");
+        System.out.println("[TEST] Assertion 3: Body de la respuesta no es nulo");
         
-        // Validamos que el nombre del usuario devuelto coincida con el que enviamos
+
+        // 4) Validamos que el nombre del usuario devuelto coincida con el que enviamos
         assertEquals("Gabriel García Márquez", body.getNombre(), "El nombre del usuario no coincide");
+        System.out.println("[TEST] Assertion 4: Nombre del usuario es correcto");
+        
+        System.out.println("\n[TEST] TODAS LAS PRUEBAS PASARON EXITOSAMENTE");
+        System.out.println("===== FIN DEL TEST =====\n");
     }
 }

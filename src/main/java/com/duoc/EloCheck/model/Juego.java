@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "juegos")
 public class Juego {
 
+    public Juego(int id2, String juegoNombre2, Equipo equipoMinimo, Equipo equipoRecomendado) {
+        //TODO Auto-generated constructor stub
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
