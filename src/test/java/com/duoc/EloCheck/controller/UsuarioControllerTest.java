@@ -44,39 +44,38 @@ class UsuarioControllerTest {
         System.out.println("[TEST]   - Elo: " + equipo.getElo());
 
         // Simulamos el comportamiento del servicio (Mock)
+        // Así evitamos acceder a base de datos en una prueba unitaria.
+        // Cuando el servicio intente guardar el usuario, le decimos que devuelva el mismo usuario (como si lo hubiera guardado).
         // Cuando el controlador invoque guardar(), Mockito devolverá el usuario sin tocar la base de datos.
         when(usuarioService.guardar(usuario)).thenReturn(usuario);
 
-        System.out.println("[TEST] Mock del servicio configurado");
-        System.out.println("[TEST] Cuando se invoque usuarioService.guardar(), retornará el usuario");
-
         // Llamamos al método del controlador que queremos probar.
-        System.out.println("[TEST] Ejecutando: usuarioController.crear(usuario)");
+        System.out.println("\n[TEST] Ejecutando: usuarioController.crear(usuario)");
         ResponseEntity<Usuario> respuesta = usuarioController.crear(usuario);
 
-        System.out.println("[TEST] Respuesta recibida del controlador");
+        System.out.println("[TEST] Respuesta recibida del controlador.");
 
         // Para que el test sea completo, verificamos varios aspectos de la respuesta:
 
         // 1) La respuesta no debe ser nula.
-        System.out.println("[TEST] Iniciando validaciones (Assertions)...");
+        System.out.println("\n[TEST] Iniciando validaciones (Assertions)...");
         
-        assertNotNull(respuesta, "La respuesta no debería ser nula");
-        System.out.println("[TEST] Assertion 1: Respuesta no es nula");
+        assertNotNull(respuesta);
+        System.out.println("\n[TEST] Assertion 1: Respuesta no es nula.\n"+respuesta);
 
         // 2) El estado HTTP esperado al crear un recurso es 201 (CREATED).
-        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode(), "El estado HTTP debe ser 201 (CREATED)");
-        System.out.println("[TEST] Assertion 2: Status HTTP es 201 CREATED");
+        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode());
+        System.out.println("\n[TEST] Assertion 2: Status HTTP es "+respuesta.getStatusCode());
 
         // 3) El cuerpo de la respuesta debe existir.
         var body = respuesta.getBody();
-        assertNotNull(body, "El cuerpo de la respuesta no debería estar vacío");
-        System.out.println("[TEST] Assertion 3: Body de la respuesta no es nulo");
+        assertNotNull(body);
+        System.out.println("\n[TEST] Assertion 3: Body de la respuesta no es nulo.\n"+body);
         
 
         // 4) Validamos que el nombre del usuario devuelto coincida con el que enviamos
-        assertEquals("Gabriel García Márquez", body.getNombre(), "El nombre del usuario no coincide");
-        System.out.println("[TEST] Assertion 4: Nombre del usuario es correcto");
+        assertEquals("Gabriel García Márquez", body.getNombre());
+        System.out.println("\n[TEST] Assertion 4: Nombre del usuario es correcto.\n"+body.getNombre());
         
         System.out.println("\n[TEST] TODAS LAS PRUEBAS PASARON EXITOSAMENTE");
         System.out.println("===== FIN DEL TEST =====\n");
